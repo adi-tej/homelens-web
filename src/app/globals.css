@@ -1,26 +1,154 @@
-@import "tailwindcss";
+@import "../../node_modules/tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Font vars to avoid unresolved warnings */
+  --font-geist-sans: system-ui, sans-serif;
+  --font-geist-mono: ui-monospace, monospace;
+
+  /* Light theme based on provided palette */
+  --background: #F9FAFB;
+  --foreground: #1E293B;
+  --surface: #FFFFFF;
+  --on-surface: #1E293B;
+  --surface-variant: #E8EDF3;
+  --on-surface-variant: #445163;
+  --outline: #B4BECF;
+  --brand: #7E9F8F;
+
+  --primary: #729387;
+  --on-primary: #FFFFFF;
+  --primary-container: #DAE7E1;
+  --on-primary-container: #0F1F1A;
+
+  --secondary: #C6A664;
+  --on-secondary: #1E1607;
+  --secondary-container: #F3E6C6;
+  --on-secondary-container: #332707;
+
+  --tertiary: #4C8F5A;
+  --on-tertiary: #FFFFFF;
+  --tertiary-container: #D7EAD8;
+  --on-tertiary-container: #0C2413;
+
+  --error: #D26763;
+  --on-error: #FFFFFF;
+  --error-container: #F9DEDC;
+  --on-error-container: #410E0B;
+
+  --inverse-surface: #141A1E;
+  --inverse-on-surface: #E8EDF3;
+  --inverse-primary: #97BBAE;
+
+  /* Subtle motion radius to match theme */
+  --radius-sm: 0.375rem; /* 6px */
+  --radius-md: 0.5rem;   /* 8px */
+  --radius-lg: 0.75rem;  /* 12px */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Map to utility friendly custom props (Tailwind can still use arbitrary values) */
+@layer base {
+  :root {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-surface: var(--surface);
+    --color-on-surface: var(--on-surface);
+    --color-surface-variant: var(--surface-variant);
+    --color-on-surface-variant: var(--on-surface-variant);
+    --color-outline: var(--outline);
+    --color-brand: var(--brand);
+
+    --color-primary: var(--primary);
+    --color-on-primary: var(--on-primary);
+    --color-primary-container: var(--primary-container);
+    --color-on-primary-container: var(--on-primary-container);
+
+    --color-secondary: var(--secondary);
+    --color-on-secondary: var(--on-secondary);
+    --color-secondary-container: var(--secondary-container);
+    --color-on-secondary-container: var(--on-secondary-container);
+
+    --color-tertiary: var(--tertiary);
+    --color-on-tertiary: var(--on-tertiary);
+    --color-tertiary-container: var(--tertiary-container);
+    --color-on-tertiary-container: var(--on-tertiary-container);
+
+    --color-error: var(--error);
+    --color-on-error: var(--on-error);
+    --color-error-container: var(--error-container);
+    --color-on-error-container: var(--on-error-container);
+
+    --color-inverse-surface: var(--inverse-surface);
+    --color-inverse-on-surface: var(--inverse-on-surface);
+    --color-inverse-primary: var(--inverse-primary);
+
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Dark theme based on provided palette */
+    --background: #0E1518;
+    --foreground: #E8EDF3;
+    --surface: #121A1E;
+    --on-surface: #E8EDF3;
+    --surface-variant: #1D2A2E;
+    --on-surface-variant: #A4B2C2;
+    --outline: #5E6A77;
+    --brand: #7E9F8F;
+
+    --primary: #97BBAE;
+    --on-primary: #0B1C17;
+    --primary-container: #47665C;
+    --on-primary-container: #DAE7E1;
+
+    --secondary: #E0C074;
+    --on-secondary: #2B2300;
+    --secondary-container: #4A3B00;
+    --on-secondary-container: #F9EAA7;
+
+    --tertiary: #81C691;
+    --on-tertiary: #00210F;
+    --tertiary-container: #1F4A2B;
+    --on-tertiary-container: #D7EAD8;
+
+    --error: #F2B8B5;
+    --on-error: #601410;
+    --error-container: #8C1D18;
+    --on-error-container: #F9DEDC;
+
+    --inverse-surface: #F3F4F6;
+    --inverse-on-surface: #121A1E;
+    --inverse-primary: #7E9F8F;
   }
+}
+
+html {
+  color-scheme: light dark;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Subtle utilities that pair well with the palette */
+.container-responsive {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.card-surface {
+  background: var(--surface);
+  color: var(--on-surface);
+  border: 1px solid color-mix(in oklab, var(--outline) 25%, transparent);
+  border-radius: var(--radius-lg);
+}
+
+.gradient-hero {
+  background-image: radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--primary) 22%, transparent) 0%, transparent 60%),
+    radial-gradient(1000px 400px at 110% -20%, color-mix(in oklab, var(--secondary) 18%, transparent) 0%, transparent 60%);
 }
