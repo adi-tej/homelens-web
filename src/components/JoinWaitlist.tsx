@@ -32,7 +32,7 @@ export default function ContactForm() {
   if (submitted) {
     return (
       <div className="text-center py-8">
-        <div className="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center mx-auto mb-4">
+        <div className="w-16 h-16 rounded-lg bg-primary-container flex items-center justify-center mx-auto mb-4 border border-primary/20">
           <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
@@ -51,7 +51,7 @@ export default function ContactForm() {
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           placeholder="Your name (optional)"
-          className="h-12 px-4 rounded-md border outline-none bg-surface text-on-surface border-outline/40 focus:border-primary/60 transition-colors"
+          className="h-12 px-4 rounded-lg border outline-none bg-surface text-on-surface border-outline/40 focus:border-primary/60 transition-colors"
           aria-label="Name"
         />
         <input
@@ -60,14 +60,14 @@ export default function ContactForm() {
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           placeholder="Your email *"
-          className="h-12 px-4 rounded-md border outline-none bg-surface text-on-surface border-outline/40 focus:border-primary/60 transition-colors"
+          className="h-12 px-4 rounded-lg border outline-none bg-surface text-on-surface border-outline/40 focus:border-primary/60 transition-colors"
           aria-label="Email"
         />
       </div>
       <select
         value={formData.type}
         onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-        className="w-full h-12 px-4 rounded-md border outline-none bg-surface text-on-surface border-outline/40 focus:border-primary/60 transition-colors"
+        className="w-full h-12 px-4 rounded-lg border outline-none bg-surface text-on-surface border-outline/40 focus:border-primary/60 transition-colors"
         aria-label="Message type"
       >
         <option value="feedback">Share Feedback</option>
@@ -80,12 +80,15 @@ export default function ContactForm() {
         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
         placeholder="Your message *"
         rows={5}
-        className="w-full px-4 py-3 rounded-md border outline-none bg-surface text-on-surface border-outline/40 focus:border-primary/60 transition-colors resize-none"
+        className="w-full px-4 py-3 rounded-lg border outline-none bg-surface text-on-surface border-outline/40 focus:border-primary/60 transition-colors resize-none"
         aria-label="Message"
       />
       <button
         type="submit"
-        className="w-full h-12 px-5 rounded-md bg-primary text-on-primary font-medium hover:opacity-95 active:opacity-90 shadow-sm transition-opacity"
+        className="w-full h-12 px-5 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all"
+        style={{ backgroundColor: '#729387', color: '#FFFFFF' }}
+        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#5f7a70'}
+        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#729387'}
       >
         Send Message
       </button>

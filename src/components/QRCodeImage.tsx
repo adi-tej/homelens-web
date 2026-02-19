@@ -13,7 +13,7 @@ export default function QRCodeImage({ src, alt, platform }: QRCodeImageProps) {
 
   if (imageError) {
     return (
-      <div className="w-48 h-48 bg-background border-2 border-outline/20 rounded flex flex-col items-center justify-center gap-2">
+      <div className="w-48 h-48 bg-background border border-outline/20 rounded-lg flex flex-col items-center justify-center gap-2">
         <svg className="w-16 h-16 text-outline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
         </svg>
@@ -24,7 +24,7 @@ export default function QRCodeImage({ src, alt, platform }: QRCodeImageProps) {
   }
 
   return (
-    <div className="w-48 h-48 bg-background border-2 border-outline/20 rounded flex items-center justify-center">
+    <div className="w-48 h-48 bg-background flex items-center justify-center">
       <Image
         src={src}
         alt={alt}
