@@ -5,35 +5,41 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy – Home Lens",
   description:
-      "Privacy policy for Home Lens App, operated by Westvale Holdings Pty Ltd. All data is stored locally on your device.",
+      "Privacy policy for Home Lens App. All data is stored locally on your device.",
 };
 
 export default function PrivacyPolicy() {
   return (
-      <div className="min-h-screen relative">
-        <div className="absolute inset-0 gradient-hero" aria-hidden/>
+      <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
+        <div className="absolute inset-0 gradient-hero pointer-events-none" aria-hidden/>
         {/* Header */}
-        <header className="relative overflow-hidden">
+        <header className="fixed inset-x-0 top-0 z-50 border-b border-outline/35 bg-background/85 shadow-sm backdrop-blur-xl">
           <div className="container-responsive relative">
-            <nav className="flex flex-col gap-6 py-8 md:py-10">
-              <div className="flex items-start justify-between gap-6">
+            <nav className="flex flex-col gap-6 py-4 md:py-5">
+              <div className="flex items-center justify-between gap-6">
                 <Link href="/" className="flex items-end gap-2">
                   <Image src="/logo.svg" width={40} height={40} alt="HomeLens logo" className="p-1"/>
                   <span
-                      className="text-xl md:text-2xl font-semibold tracking-tight leading-tight"
-                      style={{color: "#729387"}}
+                      className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-primary-strong"
                   >
                     Home Lens
                   </span>
                 </Link>
-
+                <div className="flex items-center gap-2">
+                  <Link href="/" className="hidden rounded-full px-4 py-2 text-sm font-medium text-on-surface-variant transition-colors hover:bg-primary-container hover:text-primary-strong sm:inline-flex">
+                    Home
+                  </Link>
+                  <Link href="/#download" className="rounded-full bg-primary-strong px-4 py-2 text-sm font-semibold text-on-primary shadow-sm transition-colors hover:bg-primary">
+                    Download
+                  </Link>
+                </div>
               </div>
             </nav>
           </div>
         </header>
 
         {/* Main Content */}
-        <main className="py-6 md:py-6">
+        <main className="relative z-10 pb-6 pt-28 md:pb-6 md:pt-32">
           <article className="container-responsive max-w-3xl">
             {/* Intro */}
             <div className="mb-8">
@@ -52,7 +58,7 @@ export default function PrivacyPolicy() {
               </div>
               <p className="text-lg text-on-surface-variant mt-4 leading-relaxed px-4">
                 Home Lens App is operated by{" "}
-                <strong>Westvale Holdings Pty Ltd</strong> (ABN 23 695 449 793).
+                <strong>Home Lens App</strong>.
                 We are committed to protecting your privacy. This Privacy Policy
                 explains how Home Lens handles your information.
               </p>
@@ -147,7 +153,7 @@ export default function PrivacyPolicy() {
                 <p className="text-on-surface-variant leading-relaxed">
                   If you have questions about this Privacy Policy, please contact:
                   <br/>
-                  <strong>Westvale Holdings Pty Ltd</strong>
+                  <strong>Home Lens App</strong>
                   <br/>
                   Email:{" "}
                   <a
@@ -171,7 +177,7 @@ export default function PrivacyPolicy() {
           </article>
         </main>
 
-        <div className="absolute bottom-0 inset-0 gradient-footer pointer-events-none" aria-hidden/>
+        <div className="absolute inset-x-0 bottom-0 h-[520px] footer-gradient pointer-events-none" aria-hidden/>
 
         {/* Footer */}
         <footer className="relative z-10">
@@ -182,7 +188,7 @@ export default function PrivacyPolicy() {
             </Link>
             <div>
               <p className="text-sm text-on-surface-variant">
-                © {new Date().getFullYear()} Westvale Holdings Pty Ltd
+                © {new Date().getFullYear()} Home Lens App
               </p>
               <p className="text-xs text-on-surface-variant opacity-75 mt-1">
                 ABN 23 695 449 793

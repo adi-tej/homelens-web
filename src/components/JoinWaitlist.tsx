@@ -64,16 +64,27 @@ export default function ContactForm() {
           aria-label="Email"
         />
       </div>
-      <select
-        value={formData.type}
-        onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-        className="w-full h-12 px-4 rounded-lg border outline-none bg-surface text-on-surface border-outline/40 focus:border-primary/60 transition-colors"
-        aria-label="Message type"
-      >
-        <option value="feedback">Share Feedback</option>
-        <option value="feature">Request a Feature</option>
-        <option value="contact">General Contact</option>
-      </select>
+      <div className="relative">
+        <select
+          value={formData.type}
+          onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+          className="w-full h-12 appearance-none rounded-lg border bg-surface py-0 pl-4 pr-12 text-on-surface outline-none border-outline/40 focus:border-primary/60 transition-colors"
+          aria-label="Message type"
+        >
+          <option value="feedback">Share Feedback</option>
+          <option value="feature">Request a Feature</option>
+          <option value="contact">General Contact</option>
+        </select>
+        <svg
+          className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface-variant"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
       <textarea
         required
         value={formData.message}

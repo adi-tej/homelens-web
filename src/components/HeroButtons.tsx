@@ -1,32 +1,34 @@
 "use client";
 
+function scrollToSection(targetId: string) {
+  const element = document.getElementById(targetId);
+
+  if (!element) {
+    window.location.href = `/#${targetId}`;
+    return;
+  }
+
+  element.scrollIntoView({ behavior: "smooth", block: "start" });
+  window.history.replaceState(null, "", `#${targetId}`);
+}
+
 export default function HeroButtons() {
   return (
     <div className="flex flex-col sm:flex-row gap-3">
-      <a
-        href="#download"
-        className="h-12 inline-flex items-center justify-center rounded-lg px-6 font-semibold shadow-md hover:shadow-lg transition-all"
-        style={{ backgroundColor: '#729387', color: '#FFFFFF' }}
-        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#5f7a70'}
-        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#729387'}
+      <button
+        type="button"
+        onClick={() => scrollToSection("download")}
+        className="inline-flex h-12 items-center justify-center rounded-xl bg-primary-strong px-6 font-semibold text-on-primary shadow-soft transition-all hover:-translate-y-0.5 hover:bg-primary"
       >
-        Get the App
-      </a>
-      <a
-        href="#story"
-        className="h-12 inline-flex items-center justify-center rounded-lg px-6 font-medium transition-all"
-        style={{ backgroundColor: '#E8EDF3', color: '#1E293B', border: '1px solid rgba(180, 190, 207, 0.4)' }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = '#DAE7E1';
-          e.currentTarget.style.borderColor = 'rgba(114, 147, 135, 0.6)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = '#E8EDF3';
-          e.currentTarget.style.borderColor = 'rgba(180, 190, 207, 0.4)';
-        }}
+        Download the App
+      </button>
+      <button
+        type="button"
+        onClick={() => scrollToSection("product")}
+        className="inline-flex h-12 items-center justify-center rounded-xl border border-outline bg-surface px-6 font-medium text-on-surface transition-all hover:-translate-y-0.5 hover:border-primary hover:bg-primary-container"
       >
-        Why We Built It
-      </a>
+        See What It Calculates
+      </button>
     </div>
   );
 }

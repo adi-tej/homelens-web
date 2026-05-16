@@ -13,17 +13,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HomeLens – Property decisions made clear",
+  title: "Home Lens – Know the numbers before you buy",
   description:
-    "HomeLens helps you model real-world property scenarios and compare them side-by-side—private, offline, and insight-driven.",
+    "Compare property scenarios, reveal hidden buying costs, model mortgage and cash flow, and review 5 year ROI projections before committing capital.",
   metadataBase: new URL("https://homelens.app"),
   icons: {
     icon: "/icon.png",
   },
   openGraph: {
-    title: "HomeLens – Property decisions made clear",
+    title: "Home Lens – Know the numbers before you buy",
     description:
-      "Model loans, stamp duty, LMI, tax benefits, and growth. Compare scenarios and see long-term projections.",
+      "A private property analysis app for scenario comparison, hidden costs, mortgage, cash flow, ROI, and 5 year performance.",
     url: "https://homelens.app",
     siteName: "HomeLens",
     images: [
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "HomeLens – Property decisions made clear",
+    title: "Home Lens – Know the numbers before you buy",
     description:
-      "Understand the true costs and returns of property investment with a private, offline-first calculator.",
+      "Understand the true costs and returns of property decisions with private, local-first scenario analysis.",
     images: ["/window.svg"],
   },
 };

@@ -1,58 +1,145 @@
 import Image from "next/image";
 import Link from "next/link";
-import SectionCard from "@/components/SectionCard";
 import ContactForm from "@/components/JoinWaitlist";
 import QRCodeImage from "@/components/QRCodeImage";
 import HeroButtons from "@/components/HeroButtons";
+import HeaderNav from "@/components/HeaderNav";
+
+type ComparisonRow = [label: string, caseOne: string, caseTwo: string, highlight?: boolean];
+type SimpleRow = [label: string, value: string, highlight?: boolean];
+
+const marketImage =
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1100&q=80";
+
+const valuePillars = [
+  {
+    eyebrow: "Compare",
+    title: "Pressure-test every scenario",
+    description:
+      "Model different deposits, properties, loan structures, and occupancy choices before you shortlist the deal.",
+    icon: "M9 17v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm6 0V7a2 2 0 00-2-2h-2a2 2 0 00-2 2v10m10 0V4a2 2 0 00-2-2h-2a2 2 0 00-2 2v13",
+  },
+  {
+    eyebrow: "Reveal",
+    title: "Expose the costs buyers miss",
+    description:
+      "Bring stamp duty, LMI, fees, mortgage pressure, expenses, rent, and tax effects into one clean decision view.",
+    icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+  },
+  {
+    eyebrow: "Project",
+    title: "Look five years ahead",
+    description:
+      "Review cash flow, equity, total return, and ROI over time so the long-term trade-off is visible early.",
+    icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6",
+  },
+];
+
+const comparisonRows: ComparisonRow[] = [
+  ["Loan Amount", "$736,560", "$688,500"],
+  ["Monthly Mortgage", "$4,182", "$3,909", true],
+  ["Rental Income", "$30,000", "$30,000"],
+  ["Tax Return", "$13,984", "$13,196"],
+  ["Net Cash Flow", "-$22,553", "-$20,066", true],
+  ["Equity", "$89,922", "$129,275"],
+  ["Total Return", "$67,984", "$67,196"],
+];
+
+const hiddenCostRows: SimpleRow[] = [
+  ["Stamp duty", "$30,412"],
+  ["LMI", "$8,500"],
+  ["Loan amount", "$688,500"],
+  ["Monthly mortgage", "$3,909", true],
+  ["Annual expenses", "$10,351"],
+];
+
+const performanceRows: ComparisonRow[] = [
+  ["Property value", "$824,000", "$848,720"],
+  ["Rental income", "$30,000", "$31,500"],
+  ["Net cash flow", "-$20,066", "-$16,477", true],
+  ["Equity", "$129,275", "$139,073"],
+  ["ROI", "-69.76%", "-52.11%", true],
+];
+
+const proofStats = [
+  ["5 year", "projection horizon"],
+  ["0", "cloud storage required"],
+  ["∞", "scenario comparisons"],
+];
 
 export default function Home() {
   return (
-      <div className="min-h-screen bg-background relative">
+      <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
+        <HeaderNav />
+
         {/* Hero */}
-        <header className="relative overflow-hidden">
-          <div className="absolute inset-0 gradient-hero" aria-hidden/>
+        <header className="relative overflow-hidden hero-gradient">
           <div className="container-responsive relative">
-            <nav className="flex items-center justify-between py-8 md:py-10">
-              <div className="flex items-end gap-2">
-                <Image src="/logo.svg" width={40} height={40} alt="HomeLens logo" className="p-1"/>
-                <span className="text-xl md:text-2xl font-semibold tracking-tight leading-tight"
-                      style={{color: '#729387'}}>Home Lens</span>
-              </div>
-              <div className="hidden sm:flex items-center gap-8">
-                <Link href="#download"
-                      className="text-base text-on-surface-variant hover:text-primary transition-colors font-medium">Download</Link>
-                <Link href="#story"
-                      className="text-base text-on-surface-variant hover:text-primary transition-colors font-medium">Our
-                  Story</Link>
-                <Link href="#join"
-                      className="text-base text-on-surface-variant hover:text-primary transition-colors font-medium">Contact</Link>
-              </div>
-            </nav>
-            <div className="grid md:grid-cols-2 gap-10 py-12 md:py-20 items-center">
+            <div className="grid items-center gap-12 pb-12 pt-32 md:pb-20 md:pt-36 lg:grid-cols-[0.92fr_1.08fr]">
               <div className="flex flex-col gap-6">
-              <span
-                  className="inline-flex w-fit items-center gap-2 rounded-full bg-primary-container text-on-primary-container px-4 py-2 text-xs font-medium border border-primary/20">
-                <svg className="w-3 h-3 text-on-primary-container" fill="currentColor" viewBox="0 0 16 16"><path
-                    d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>
-                Private & Secure • Works Offline
-              </span>
-                <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight">
-                  See Through Your Property Investment
+                <span className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary-container px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-on-primary-container">
+                  Local-first property analysis
+                </span>
+                <h1 className="max-w-3xl text-4xl font-bold leading-[1.04] tracking-tight md:text-6xl">
+                  Know the numbers before the property feels urgent.
                 </h1>
-                <p className="text-lg md:text-xl text-on-surface-variant max-w-prose leading-relaxed">
-                  Stop second-guessing. HomeLens transforms complex property calculations into crystal-clear
-                  insights—helping you understand the true financial impact before you commit.
+                <p className="max-w-2xl text-lg leading-relaxed text-on-surface-variant md:text-xl">
+                  Home Lens helps Australian buyers and investors compare scenarios, reveal hidden costs, and understand mortgage, cash flow, ROI, and five-year performance before committing capital.
                 </p>
+                <div className="grid max-w-xl grid-cols-3 gap-3">
+                  {proofStats.map(([value, label]) => (
+                      <div key={label} className="card-surface px-4 py-3 shadow-none">
+                        <div className="text-2xl font-bold text-primary-strong">{value}</div>
+                        <div className="mt-1 text-xs leading-snug text-on-surface-variant">{label}</div>
+                      </div>
+                  ))}
+                </div>
                 <HeroButtons/>
               </div>
               <div className="relative">
-                <div className="relative mx-auto max-w-[420px]">
-                  <div
-                      className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 blur-3xl opacity-50"
-                      aria-hidden/>
-                  <div className="relative card-surface p-8 shadow-lg">
-                    <Image src="/logo.svg" alt="HomeLens App Preview" width={700} height={700}
-                           className="w-full h-auto"/>
+                <div className="absolute -inset-6 rounded-[3rem] bg-primary/10 blur-3xl" aria-hidden/>
+                <div className="panel-surface relative overflow-hidden p-4 md:p-5">
+                  <div className="relative h-56 overflow-hidden rounded-3xl border border-outline/35 md:h-64">
+                    <Image
+                        src={marketImage}
+                        alt="Modern residential property representing a property investment decision"
+                        fill
+                        priority
+                        sizes="(min-width: 1024px) 560px, 100vw"
+                        className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-inverse-surface/70 via-inverse-surface/10 to-transparent" aria-hidden/>
+                    <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/15 bg-white/90 p-4 backdrop-blur dark:bg-surface/90">
+                      <p className="eyebrow">Deal snapshot</p>
+                      <div className="mt-3 grid grid-cols-3 gap-2 text-sm">
+                        <div className="rounded-xl bg-primary-container p-3">
+                          <p className="font-bold text-on-primary-container">Costs</p>
+                          <p className="text-primary-strong">Mapped</p>
+                        </div>
+                        <div className="rounded-xl bg-secondary-container p-3">
+                          <p className="font-bold text-on-secondary-container">Cash flow</p>
+                          <p className="text-secondary-strong">Visible</p>
+                        </div>
+                        <div className="rounded-xl bg-accent-container p-3">
+                          <p className="font-bold text-accent">ROI</p>
+                          <p className="text-on-surface-variant">Projected</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4 overflow-hidden rounded-3xl border border-outline/30 bg-surface">
+                    <div className="grid grid-cols-3 border-b border-outline/30 p-4 text-sm font-bold text-primary-strong">
+                      <span>Metric</span>
+                      <span className="text-right">Case 1</span>
+                      <span className="text-right">Case 2</span>
+                    </div>
+                    {comparisonRows.slice(0, 4).map(([label, caseOne, caseTwo, highlight]) => (
+                        <div key={label} className={`grid grid-cols-3 border-b border-outline/20 p-4 text-sm last:border-b-0 ${highlight ? "bg-secondary-container/70 text-on-secondary-container" : "bg-surface-variant/45"}`}>
+                          <span className="font-semibold text-on-surface-variant">{label}</span>
+                          <span className="text-right font-medium">{caseOne}</span>
+                          <span className="text-right font-medium">{caseTwo}</span>
+                        </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -60,133 +147,104 @@ export default function Home() {
           </div>
         </header>
 
-        {/* Value Proposition */}
-        <section className="py-16 md:py-24 bg-surface-variant/30">
+        {/* Problem */}
+        <section className="section-padding">
           <div className="container-responsive">
-            <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-                Property Investment, Finally Transparent
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="eyebrow mb-4">The buying problem</p>
+              <h2 className="text-3xl font-bold tracking-tight md:text-5xl">
+                The asking price is only the beginning.
               </h2>
-              <p className="text-lg text-on-surface-variant max-w-2xl mx-auto">
-                Every number tells a story. We help you read it.
+              <p className="mt-5 text-lg leading-relaxed text-on-surface-variant">
+                Property decisions become expensive when the real cost of ownership is scattered across loan calculators, duty tables, spreadsheets, and assumptions. Home Lens turns that uncertainty into a clearer shortlist.
               </p>
             </div>
-            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-              <div className="card-surface p-6 md:p-8 text-center">
-                <div
-                    className="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Compare Real Scenarios</h3>
-                <p className="text-on-surface-variant">
-                  Model different properties, deposit sizes, and financing options side-by-side. See which path builds
-                  wealth faster.
-                </p>
+          </div>
+        </section>
+
+        {/* Value Proposition */}
+        <section id="product" className="section-padding bg-surface-variant/35">
+          <div className="container-responsive">
+            <div className="mb-12 grid gap-6 md:grid-cols-[0.9fr_1.1fr] md:items-end">
+              <div>
+                <p className="eyebrow mb-4">Why Home Lens</p>
+                <h2 className="text-3xl font-bold tracking-tight md:text-5xl">A professional view of your next property move.</h2>
               </div>
-              <div className="card-surface p-6 md:p-8 text-center">
-                <div
-                    className="w-12 h-12 rounded-lg bg-secondary-container flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                          d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Factor In Hidden Costs</h3>
-                <p className="text-on-surface-variant">
-                  Stamp duty, LMI, ongoing expenses, tax benefits—we calculate the full picture so nothing catches you
-                  off guard.
-                </p>
-              </div>
-              <div className="card-surface p-6 md:p-8 text-center">
-                <div
-                    className="w-12 h-12 rounded-lg bg-tertiary-container flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-6 h-6 text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Project Long-Term Growth</h3>
-                <p className="text-on-surface-variant">
-                  Watch your equity grow over years. Understand when you break even, when you can refinance, and what
-                  your returns look like.
-                </p>
-              </div>
+              <p className="text-lg leading-relaxed text-on-surface-variant">
+                Designed as a marketing-grade decision layer for buyers: clean enough to use quickly, detailed enough to expose the numbers that change the deal.
+              </p>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {valuePillars.map((pillar) => (
+                  <article key={pillar.title} className="card-surface p-6 transition-transform duration-300 hover:-translate-y-1 md:p-8">
+                    <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-container text-primary-strong">
+                      <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={pillar.icon}/>
+                      </svg>
+                    </div>
+                    <p className="eyebrow mb-3">{pillar.eyebrow}</p>
+                    <h3 className="text-xl font-semibold tracking-tight">{pillar.title}</h3>
+                    <p className="mt-3 leading-relaxed text-on-surface-variant">{pillar.description}</p>
+                  </article>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Story Section */}
-        <section className="py-16 md:py-24" id="story">
+        {/* Proof Section */}
+        <section id="how-it-works" className="section-padding">
           <div className="container-responsive">
-            <div className="max-w-3xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-                  From Spreadsheet Chaos to Clarity
-                </h2>
-                <p className="text-lg text-on-surface-variant">
-                  A tool born from personal frustration
+            <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+              <div>
+                <p className="eyebrow mb-4">Scenario proof</p>
+                <h2 className="text-3xl font-bold tracking-tight md:text-5xl">Compare the decision, not just the repayment.</h2>
+                <p className="mt-5 text-lg leading-relaxed text-on-surface-variant">
+                  Two properties can look similar at first glance. Home Lens shows how hidden costs, loan amount, rent, tax return, cash flow, and equity shift the real outcome.
                 </p>
+                <div className="mt-8 overflow-hidden rounded-panel border border-outline/40 bg-surface shadow-soft">
+                  <div className="grid grid-cols-3 border-b border-outline/30 bg-surface p-4 font-bold text-primary-strong">
+                    <span>Metric</span>
+                    <span className="text-right">Case 1</span>
+                    <span className="text-right">Case 2</span>
+                  </div>
+                  {comparisonRows.map(([label, caseOne, caseTwo, highlight]) => (
+                      <div key={label} className={`grid grid-cols-3 border-b border-outline/20 p-4 text-sm last:border-b-0 md:text-base ${highlight ? "bg-secondary-container/75 text-on-secondary-container" : "bg-surface-variant/45"}`}>
+                        <span className="font-semibold text-on-surface-variant">{label}</span>
+                        <span className="text-right font-medium">{caseOne}</span>
+                        <span className="text-right font-medium">{caseTwo}</span>
+                      </div>
+                  ))}
+                </div>
               </div>
-
-              <div className="space-y-8">
+              <div className="grid gap-6">
                 <div className="card-surface p-6 md:p-8">
-                  <div className="flex gap-4 items-start">
-                    <div
-                        className="flex-shrink-0 w-12 h-12 rounded-lg bg-error-container flex items-center justify-center">
-                      <span className="text-xl">😰</span>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">The Breaking Point</h3>
-                      <p className="text-on-surface-variant leading-relaxed">
-                        When I started looking at my first property investment, I faced the same wall everyone
-                        hits: <strong>how do I actually compare my options?</strong> Should I buy a house or land? What
-                        if I save a bigger deposit? Is paying LMI worth it to enter the market sooner? Every question
-                        spawned ten more.
-                      </p>
-                    </div>
+                  <p className="eyebrow mb-4">Hidden cost intelligence</p>
+                  <h3 className="text-2xl font-bold tracking-tight">Expose the expenses that make or break the deal.</h3>
+                  <div className="mt-6 overflow-hidden rounded-2xl border border-outline/30">
+                    {hiddenCostRows.map(([label, value, highlight]) => (
+                        <div key={label} className={`flex items-center justify-between gap-6 border-b border-outline/20 p-4 last:border-b-0 ${highlight ? "bg-secondary-container/75" : "bg-surface"}`}>
+                          <span className="text-on-surface-variant">{label}</span>
+                          <span className="text-lg font-bold">{value}</span>
+                        </div>
+                    ))}
                   </div>
                 </div>
-
                 <div className="card-surface p-6 md:p-8">
-                  <div className="flex gap-4 items-start">
-                    <div
-                        className="flex-shrink-0 w-12 h-12 rounded-lg bg-secondary-container flex items-center justify-center">
-                      <span className="text-xl">📊</span>
+                  <p className="eyebrow mb-4">5 year outlook</p>
+                  <h3 className="text-2xl font-bold tracking-tight">See how the position may change over time.</h3>
+                  <div className="mt-6 overflow-hidden rounded-2xl border border-outline/30">
+                    <div className="grid grid-cols-3 border-b border-outline/30 bg-surface p-3 text-sm font-bold text-primary-strong">
+                      <span>Metric</span>
+                      <span className="text-right">2025</span>
+                      <span className="text-right">2026</span>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">Endless Spreadsheets</h3>
-                      <p className="text-on-surface-variant leading-relaxed">
-                        I built spreadsheet after spreadsheet. Loan calculators. Tax benefit models. Rental yield
-                        projections. But they were <strong>fragile, error-prone, and exhausting to maintain</strong>.
-                        Changing one assumption meant hours of recalculating. And I&apos;m a developer—I can&apos;t
-                        imagine what this is like for everyone else.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="card-surface p-6 md:p-8">
-                  <div className="flex gap-4 items-start">
-                    <div
-                        className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center">
-                      <span className="text-xl">💡</span>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">The Realization</h3>
-                      <p className="text-on-surface-variant leading-relaxed mb-4">
-                        If I—someone who builds software for a living—was struggling this much, <strong>what about
-                        first-time buyers, parents juggling work and family, or anyone without a finance
-                        background?</strong> They deserve a tool that just <em>works</em>.
-                      </p>
-                      <p className="text-on-surface-variant leading-relaxed">
-                        That&apos;s why I built HomeLens. Not as another basic calculator, but as a comprehensive
-                        modeling tool that respects your time, protects your privacy, and gives you confidence in one of
-                        life&apos;s biggest decisions.
-                      </p>
-                    </div>
+                    {performanceRows.map(([label, yearOne, yearTwo, highlight]) => (
+                        <div key={label} className={`grid grid-cols-3 border-b border-outline/20 p-3 text-sm last:border-b-0 ${highlight ? "bg-secondary-container/75" : "bg-surface-variant/45"}`}>
+                          <span className="font-semibold text-on-surface-variant">{label}</span>
+                          <span className="text-right font-medium">{yearOne}</span>
+                          <span className="text-right font-medium">{yearTwo}</span>
+                        </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -194,57 +252,44 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Features Deep Dive */}
-        <section className="py-16 md:py-24 bg-surface-variant/30">
+        {/* Privacy */}
+        <section id="privacy" className="section-padding bg-surface-variant/35">
           <div className="container-responsive">
-            <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-                Everything You Need, Nothing You Don&apos;t
-              </h2>
-            </div>
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              <SectionCard title="🏡 Real-World Modeling">
-                <p>
-                  Not just purchase price and interest rate. We calculate <strong>stamp duty, LMI, legal fees,
-                  renovations, ongoing costs, body corporate, rental income, vacancy periods, property management, and
-                  depreciation benefits</strong>. Everything that affects your bottom line.
+            <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+              <div>
+                <p className="eyebrow mb-4">Private by design</p>
+                <h2 className="text-3xl font-bold tracking-tight md:text-5xl">Serious financial decisions deserve a calmer workspace.</h2>
+                <p className="mt-5 text-lg leading-relaxed text-on-surface-variant">
+                  Your property assumptions are sensitive. Home Lens is built around local storage, fast scenario iteration, and a focused experience that keeps your numbers in your control.
                 </p>
-              </SectionCard>
-              <SectionCard title="📈 Multi-Scenario Comparison">
-                <p>
-                  Create unlimited scenarios and view them side-by-side. Instantly see which strategy gives you better
-                  cash flow, faster equity growth, or higher returns. <strong>Make data-driven decisions, not
-                  guesses</strong>.
-                </p>
-              </SectionCard>
-              <SectionCard title="🔒 Privacy First">
-                <p>
-                  Your financial data is sensitive. That&apos;s why <strong>everything stays on your device</strong>. No
-                  cloud sync. No account required. No tracking. HomeLens works completely offline—your numbers are yours
-                  alone.
-                </p>
-              </SectionCard>
-              <SectionCard title="⏱️ Built for Busy Lives">
-                <p>
-                  Input your numbers once, adjust assumptions with sliders, and see results update instantly. <strong>Minutes
-                  instead of hours</strong>. Save scenarios, revisit them months later, and keep refining as your
-                  situation changes.
-                </p>
-              </SectionCard>
+              </div>
+              <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-1">
+                {[
+                  ["No cloud account", "Scenarios are stored locally on your device."],
+                  ["Unlimited comparisons", "Keep testing deposits, cash flow, ROI, and purchase assumptions."],
+                  ["Built for the Australian market", "Designed around property costs like stamp duty, LMI, concessions, and loan settings."],
+                ].map(([title, description]) => (
+                    <article key={title} className="card-surface p-5 shadow-none">
+                      <h3 className="font-semibold">{title}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-on-surface-variant">{description}</p>
+                    </article>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
         {/* Download Section */}
-        <section id="download" className="py-16 md:py-24">
+        <section id="download" className="section-padding">
           <div className="container-responsive">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-                  Download HomeLens
+                <p className="eyebrow mb-4">Start analysing</p>
+                <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+                  Download Home Lens
                 </h2>
                 <p className="text-lg text-on-surface-variant">
-                  Scan the QR code to download the app, or get in touch below
+                  Start pressure-testing your next property decision on iPhone, or send us a note below.
                 </p>
               </div>
 
@@ -253,7 +298,7 @@ export default function Home() {
                 <div className="card-surface p-8 text-center">
                   <div>
                     <div
-                        className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 mb-4">
+                        className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-linear-to-br from-primary-strong to-accent mb-4">
                       <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
                         <path
                             d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
@@ -269,7 +314,7 @@ export default function Home() {
                     />
                   </div>
                   <p className="text-sm text-on-surface-variant mb-4">
-                    Point your camera at the QR code to download HomeLens for iOS
+                    Point your camera at the QR code to download Home Lens for iOS.
                   </p>
                   <a
                       href="https://apps.apple.com/au/app/home-lens/id6755220922"
@@ -292,10 +337,10 @@ export default function Home() {
                 </div>
 
                 {/* Android Download - Coming Soon */}
-                <div className="card-surface p-8 text-center border-2 border-dashed border-outline/40 opacity-60">
+                <div className="card-surface p-8 text-center border-2 border-dashed border-outline/45 opacity-70">
                   <div className="mb-6">
                     <div
-                        className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-blue-600 mb-4">
+                        className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-linear-to-br from-primary to-accent mb-4">
                       <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
                         <path
                             d="M17.523 15.341c-.366 0-.662-.297-.662-.662s.296-.662.662-.662.662.297.662.662-.296.662-.662.662zm-11.046 0c-.365 0-.662-.297-.662-.662s.297-.662.662-.662.662.297.662.662-.297.662-.662.662zm15.234-7.839l-1.481-2.565c-.098-.17-.315-.228-.486-.13-.17.098-.228.315-.13.486l1.498 2.594c-1.557-.698-3.302-1.089-5.162-1.089-1.86 0-3.604.391-5.162 1.089l1.498-2.594c.098-.17.04-.388-.13-.486-.171-.098-.388-.04-.486.13L9.189 7.502C6.668 8.812 5 11.174 5 13.878c0 .021.008.041.009.062h13.982c.001-.021.009-.041.009-.062 0-2.704-1.668-5.066-4.189-6.376zm-3.865 4.837h-7.638v-.662h7.638v.662zm0-2.644h-7.638v-.663h7.638v.663z"/>
@@ -314,7 +359,7 @@ export default function Home() {
                     </div>
                   </div>
                   <p className="text-sm text-on-surface-variant mb-4">
-                    Android version is currently in development
+                    Android version is currently in development.
                   </p>
                   <div className="inline-flex items-center gap-2 text-on-surface-variant font-medium">
                     Get notified when ready
@@ -330,10 +375,9 @@ export default function Home() {
               <div id="join" className="card-surface p-8 md:p-10">
                 <div className="max-w-2xl mx-auto">
                   <div className="text-center mb-6">
-                    <h3 className="text-2xl md:text-3xl font-bold mb-3">We&apos;d Love to Hear From You</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold mb-3">Have a property analysis idea?</h3>
                     <p className="text-on-surface-variant text-base md:text-lg">
-                      Have feedback? Found a bug? Want to suggest a feature? Or just want to say hello? Drop us a
-                      message and we&apos;ll get back to you.
+                      Tell us what would help you compare deals faster, reduce uncertainty, or make better investment decisions.
                     </p>
                   </div>
                   <ContactForm/>
@@ -343,26 +387,27 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="absolute bottom-0 inset-x-0 h-[600px] gradient-footer pointer-events-none" aria-hidden/>
+        <div className="footer-gradient pointer-events-none absolute inset-x-0 bottom-0 h-[600px]" aria-hidden/>
 
         {/* Footer */}
         <footer className="relative z-10">
           <div className="container-responsive py-12 text-center">
             <Link href="/" className="inline-flex flex-col items-center justify-center gap-2 mb-6">
               <Image src="/logo.svg" width={24} height={24} alt="Home Lens"/>
-              <span className="font-semibold text-lg leading-tight" style={{color: '#7E9F8F'}}>Home Lens App</span>
+              <span className="font-semibold text-lg leading-tight text-primary-strong">Home Lens</span>
             </Link>
             <div
                 className="flex items-center justify-center gap-4 md:gap-6 mb-6 text-sm text-on-surface-variant flex-wrap">
-              <a href="#download" className="hover:text-foreground transition-colors">Download</a>
-              <a href="#story" className="hover:text-foreground transition-colors">Our Story</a>
-              <a href="#join" className="hover:text-foreground transition-colors">Contact</a>
-              <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
+              <Link href="/#product" className="hover:text-foreground transition-colors">Features</Link>
+              <Link href="/#how-it-works" className="hover:text-foreground transition-colors">How It Works</Link>
+              <Link href="/#download" className="hover:text-foreground transition-colors">Download</Link>
+              <Link href="/#join" className="hover:text-foreground transition-colors">Contact</Link>
+              <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
               <a href="mailto:hello@homelens.app" className="hover:text-foreground transition-colors">Email</a>
             </div>
             <div>
               <p className="text-sm text-on-surface-variant">
-                © {new Date().getFullYear()} Westvale Holdings Pty Ltd
+                © {new Date().getFullYear()} Home Lens App
               </p>
               <p className="text-xs text-on-surface-variant opacity-75 mt-1">
                 ABN 23 695 449 793
