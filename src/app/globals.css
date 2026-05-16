@@ -1,2 +1,194 @@
 @import "../../node_modules/tailwindcss";
-@import "../styles/tailwind-theme.css";
+
+/* ─── Design tokens ─────────────────────────────────────────── */
+:root {
+  --font-geist-sans: system-ui, sans-serif;
+  --font-geist-mono: ui-monospace, monospace;
+
+  --background: #f7f8f5;
+  --foreground: #17231f;
+  --surface: #ffffff;
+  --surface-raised: #fbfcf9;
+  --surface-variant: #e8eee9;
+  --on-surface: #17231f;
+  --on-surface-variant: #52615b;
+  --outline: #c4cec7;
+  --outline-strong: #8fa198;
+
+  --primary: #6f9386;
+  --primary-strong: #496f62;
+  --on-primary: #ffffff;
+  --primary-container: #dce9e3;
+  --on-primary-container: #11251e;
+
+  --secondary: #c6a664;
+  --secondary-strong: #9c7a30;
+  --on-secondary: #201703;
+  --secondary-container: #f4e7c6;
+  --on-secondary-container: #302405;
+
+  --accent: #273a53;
+  --accent-container: #e4ebf3;
+  --success: #3f7f54;
+  --warning: #f3e7c1;
+  --inverse-surface: #101916;
+  --inverse-on-surface: #eef5f0;
+
+  --radius-card: 1.5rem;
+  --radius-panel: 2rem;
+  --shadow-soft: 0 18px 55px -28px rgb(23 35 31 / 0.35);
+  --shadow-elevated: 0 28px 90px -38px rgb(23 35 31 / 0.45);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0d1412;
+    --foreground: #edf4ef;
+    --surface: #121c19;
+    --surface-raised: #17231f;
+    --surface-variant: #1e2d28;
+    --on-surface: #edf4ef;
+    --on-surface-variant: #aebdb5;
+    --outline: #51625a;
+    --outline-strong: #7f9289;
+
+    --primary: #9fc3b6;
+    --primary-strong: #c1ddd3;
+    --on-primary: #0c1d17;
+    --primary-container: #284a40;
+    --on-primary-container: #dce9e3;
+
+    --secondary: #e5c578;
+    --secondary-strong: #f0d995;
+    --on-secondary: #291f05;
+    --secondary-container: #4c3b0b;
+    --on-secondary-container: #f8e9b8;
+
+    --accent: #c9d8ef;
+    --accent-container: #26374d;
+    --success: #85c896;
+    --warning: #514316;
+    --inverse-surface: #f4f8f5;
+    --inverse-on-surface: #101916;
+  }
+}
+
+/* ─── Tailwind v4 theme mapping ─────────────────────────────── */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-variant: var(--surface-variant);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-outline: var(--outline);
+  --color-outline-strong: var(--outline-strong);
+
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-on-primary: var(--on-primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-strong: var(--secondary-strong);
+  --color-on-secondary: var(--on-secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-on-secondary-container: var(--on-secondary-container);
+
+  --color-accent: var(--accent);
+  --color-accent-container: var(--accent-container);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-inverse-surface: var(--inverse-surface);
+  --color-inverse-on-surface: var(--inverse-on-surface);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --radius-card: var(--radius-card);
+  --radius-panel: var(--radius-panel);
+  --shadow-soft: var(--shadow-soft);
+  --shadow-elevated: var(--shadow-elevated);
+}
+
+/* ─── Base styles ───────────────────────────────────────────── */
+@layer base {
+  html {
+    color-scheme: light dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), system-ui, sans-serif;
+  }
+
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+/* ─── Component utilities ───────────────────────────────────── */
+@layer components {
+  .container-responsive {
+    width: min(100% - 2rem, 1180px);
+    margin-inline: auto;
+  }
+
+  .section-padding {
+    padding-block: clamp(4rem, 7vw, 7rem);
+  }
+
+  .card-surface {
+    background: color-mix(in oklab, var(--surface) 94%, transparent);
+    color: var(--on-surface);
+    border: 1px solid color-mix(in oklab, var(--outline) 52%, transparent);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .panel-surface {
+    background: linear-gradient(145deg, color-mix(in oklab, var(--surface) 96%, transparent), color-mix(in oklab, var(--surface-variant) 55%, transparent));
+    color: var(--on-surface);
+    border: 1px solid color-mix(in oklab, var(--outline) 48%, transparent);
+    border-radius: var(--radius-panel);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--primary-strong);
+  }
+
+  .hero-gradient {
+    background:
+      radial-gradient(900px 520px at 8% -10%, color-mix(in oklab, var(--primary) 24%, transparent) 0%, transparent 66%),
+      radial-gradient(820px 460px at 105% 12%, color-mix(in oklab, var(--secondary) 20%, transparent) 0%, transparent 62%),
+      linear-gradient(180deg, color-mix(in oklab, var(--background) 94%, var(--surface)) 0%, var(--background) 100%);
+  }
+
+  .gradient-hero {
+    background:
+      radial-gradient(900px 520px at 8% -10%, color-mix(in oklab, var(--primary) 24%, transparent) 0%, transparent 66%),
+      radial-gradient(820px 460px at 105% 12%, color-mix(in oklab, var(--secondary) 20%, transparent) 0%, transparent 62%),
+      linear-gradient(180deg, color-mix(in oklab, var(--background) 94%, var(--surface)) 0%, var(--background) 100%);
+  }
+
+  .footer-gradient {
+    background:
+      radial-gradient(950px 500px at 85% 110%, color-mix(in oklab, var(--primary) 20%, transparent) 0%, transparent 62%),
+      radial-gradient(760px 420px at 0% 100%, color-mix(in oklab, var(--secondary) 18%, transparent) 0%, transparent 62%);
+  }
+
+  .gradient-footer {
+    background:
+      radial-gradient(950px 500px at 85% 110%, color-mix(in oklab, var(--primary) 20%, transparent) 0%, transparent 62%),
+      radial-gradient(760px 420px at 0% 100%, color-mix(in oklab, var(--secondary) 18%, transparent) 0%, transparent 62%);
+  }
+}
